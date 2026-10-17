@@ -1,5 +1,5 @@
-{ self, ... }: {
-  flake.nixosModules.server = { pkgs, ... }: {
+{ self, moduleWithSystem, ... }: {
+  flake.nixosModules.server = moduleWithSystem (perSystem@{ inputs', ... }: nixos@{ pkgs, ... }: {
     imports = [
       self.nixosModules.nix
       self.nixosModules.users
@@ -32,10 +32,10 @@
     };
 
     environment.enableAllTerminfo = true;
-    environment.systemPackages = with pkgs; [
-      curl
-      git
-      sops
+    environment.systemPackages = [
+      pkgs.curl
+      pkgs.sops
+      inputs'.szpkgs.packages.git
     ];
-  };
+  });
 }

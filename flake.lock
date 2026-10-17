@@ -86,7 +86,8 @@
         "import-tree": "import-tree",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "sops-nix": "sops-nix"
+        "sops-nix": "sops-nix",
+        "szpkgs": "szpkgs"
       }
     },
     "sops-nix": {
@@ -106,6 +107,48 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "szpkgs": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ],
+        "wrappers": "wrappers"
+      },
+      "locked": {
+        "lastModified": 1792268178,
+        "narHash": "sha256-WNfQLIP4YFDAwdRirQvaLbG+TfssR69TEjgzNwbiYYo=",
+        "owner": "Zshoham",
+        "repo": "pkgs",
+        "rev": "a4f6569fc7a9f5e530cdef443d7f0ac90feca9cc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Zshoham",
+        "repo": "pkgs",
+        "type": "github"
+      }
+    },
+    "wrappers": {
+      "inputs": {
+        "nixpkgs": [
+          "szpkgs",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792152791,
+        "narHash": "sha256-J3sKT3dVyCXlblkgzWc41cUZ4ezZbR5XZzfvETkAH78=",
+        "owner": "nix-community",
+        "repo": "nix-wrapper-modules",
+        "rev": "6bc32f5cc67ee0f1bfb246c47b4b2c53ba1bc014",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nix-wrapper-modules",
         "type": "github"
       }
     }

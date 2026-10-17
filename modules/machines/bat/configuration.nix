@@ -1,6 +1,6 @@
-{ self, ... }: {
+{ self, moduleWithSystem, ... }: {
 
-  flake.nixosModules.bat = { pkgs, ... }: {
+  flake.nixosModules.bat = moduleWithSystem (perSystem@{ inputs', ... }: nixos@{ pkgs, ... }: {
     imports = [ 
       self.nixosModules.batHardware
       self.nixosModules.server
@@ -42,13 +42,18 @@
       accelerationDevices = [ "/dev/dri/renderD128" ];
       machine-learning.enable = false;
     };
+
+    programs.starship = {
+      enable = true;
+      package = inputs'.szpkgs.packages.starship;
+    };
   
-    environment.systemPackages = with pkgs; [
-      devenv
-      zellij
-      neovim
+    environment.systemPackages = [
+      pkgs.devenv
+      pkgs.neovim
+      inputs'.szpkgs.packages.zellij
     ];
 
     system.stateVersion = "25.11";
-  };
+  });
 }
