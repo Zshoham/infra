@@ -1,0 +1,7 @@
+keys:
+  - &bat age1e5zt6euhvt2vnez5xla40weyqh2mtpac4vlu5ycdhfjwwvpqfasq6vnsp0
+creation_rules:
+  - path_regex: secrets.yaml$
+    key_groups:
+    - age:
+      - *bat
