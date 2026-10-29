@@ -1,4 +1,4 @@
-{ self, lib, moduleWithSystem, ... }: {
+{ self, lib, ... }: {
 
   flake.nixosModules.tailscale-proxy = { config, pkgs, ... }:
   let
@@ -47,7 +47,7 @@
   
   };
 
-  flake.nixosModules.tailscale = moduleWithSystem (perSystem@{ inputs', ... }: nixos@{ config, ... }: {
+  flake.nixosModules.tailscale = { config, pkgs-unstable, ... }: {
     imports = [ self.nixosModules.tailscale-proxy ];
 
     networking.firewall = {
@@ -57,7 +57,7 @@
     };
 
     services.tailscale = {
-      package = inputs'.nixpkgs-unstable.legacyPackages.tailscale;
+      package = pkgs-unstable.tailscale;
       enable = true;
       proxy.enable = true;
       useRoutingFeatures = "server";
@@ -67,5 +67,5 @@
     };
 
     systemd.services.tailscaled.environment.TS_DEBUG_FIREWALL_MODE = "nftables";
-  });
+  };
 }

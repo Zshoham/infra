@@ -1,9 +1,7 @@
-{ self, moduleWithSystem, ... }: {
-  flake.nixosModules.server = moduleWithSystem (perSystem@{ inputs', ... }: nixos@{ pkgs, ... }: {
-    imports = [
-      self.nixosModules.nix
-      self.nixosModules.users
-      self.nixosModules.sops
+{ self, ... }: {
+  flake.nixosModules.server = { pkgs, szpkgs, ... }: {
+    imports = [ 
+      self.nixosModules.base
       self.nixosModules.tailscale
     ];
 
@@ -16,7 +14,6 @@
       memoryPercent = 25;
     };
 
-    networking.networkmanager.enable = true;
     networking.nftables.enable = true;
     networking.firewall.enable = true;
     services.openssh.enable = true;
@@ -25,17 +22,5 @@
       SystemMaxUse=1G
       MaxRetentionSec=2week
     '';
-
-    programs.neovim = {
-      enable = true;
-      defaultEditor = true;
-    };
-
-    environment.enableAllTerminfo = true;
-    environment.systemPackages = [
-      pkgs.curl
-      pkgs.sops
-      inputs'.szpkgs.packages.git
-    ];
-  });
+  };
 }

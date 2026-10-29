@@ -1,5 +1,6 @@
-{
+{ self, ... }: {
   flake.nixosModules.users = { config, ...  }: {
+    imports = [ self.nixosModules.sops ];
     sops.secrets.sgame-password-hash.neededForUsers = true;
     users.mutableUsers = false;
 

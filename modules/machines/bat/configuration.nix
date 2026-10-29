@@ -1,6 +1,6 @@
-{ self, moduleWithSystem, ... }: {
+{ self, ... }: {
 
-  flake.nixosModules.bat = moduleWithSystem (perSystem@{ inputs', ... }: nixos@{ pkgs, ... }: {
+  flake.nixosModules.bat = { pkgs, szpkgs, ... }: {
     imports = [ 
       self.nixosModules.batHardware
       self.nixosModules.server
@@ -45,15 +45,15 @@
 
     programs.starship = {
       enable = true;
-      package = inputs'.szpkgs.packages.starship;
+      package = szpkgs.starship;
     };
   
     environment.systemPackages = [
       pkgs.devenv
       pkgs.neovim
-      inputs'.szpkgs.packages.zellij
+      szpkgs.zellij
     ];
 
     system.stateVersion = "25.11";
-  });
+  };
 }

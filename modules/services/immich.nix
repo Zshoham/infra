@@ -1,6 +1,6 @@
-{ moduleWithSystem, ... }: {
+{
 
-  flake.nixosModules.immich = moduleWithSystem ({ inputs', ... }: {
+  flake.nixosModules.immich = { pkgs-unstable, ... }: {
     users.users.immich.extraGroups = [ "video" "render" ];
 
     services.tailscale.proxy.svc = [
@@ -8,7 +8,7 @@
     ];
  
     services.immich = {
-      package = inputs'.nixpkgs-unstable.legacyPackages.immich;
+      package = pkgs-unstable.immich;
       enable = true;
       host = "0.0.0.0";
       port = 2283;
@@ -23,5 +23,5 @@
         newVersionCheck.enabled = false;
       };
     };
-  });
+  };
 }
