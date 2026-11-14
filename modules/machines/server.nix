@@ -22,5 +22,7 @@
       SystemMaxUse=1G
       MaxRetentionSec=2week
     '';
+
+    virtualisation.podman.enable = true;
   };
 }
