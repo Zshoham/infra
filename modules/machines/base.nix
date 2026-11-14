@@ -1,25 +1,16 @@
 { self, ... }: {
-  flake.nixosModules.base = { pkgs, szpkgs, ... }: {
+  flake.nixosModules.base = { pkgs, ... }: {
     imports = [
       self.nixosModules.nix
       self.nixosModules.users
-      self.nixosModules.packages
+      self.nixosModules.dev
     ];
 
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
 
     networking.networkmanager.enable = true;
-  
-    programs.neovim = {
-      enable = true;
-      defaultEditor = true;
-    };
 
-    environment.systemPackages = [
-      pkgs.curl
-      pkgs.sops
-      szpkgs.git
-    ];
+    environment.systemPackages = [ pkgs.sops ];
   };
 }

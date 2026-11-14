@@ -1,6 +1,6 @@
 { self, ... }: {
 
-  flake.nixosModules.bat = { pkgs, szpkgs, ... }: {
+  flake.nixosModules.bat = { pkgs, ... }: {
     imports = [ 
       self.nixosModules.batHardware
       self.nixosModules.server
@@ -43,16 +43,7 @@
       machine-learning.enable = false;
     };
 
-    programs.starship = {
-      enable = true;
-      package = szpkgs.starship;
-    };
-  
-    environment.systemPackages = [
-      pkgs.devenv
-      pkgs.neovim
-      szpkgs.zellij
-    ];
+    environment.systemPackages = [ pkgs.devenv ];
 
     system.stateVersion = "25.11";
   };
